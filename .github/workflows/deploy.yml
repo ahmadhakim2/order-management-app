@@ -26,13 +26,27 @@ jobs:
           export NODE_ENV=production
           npm run build
 
+      - name: List build output
+        run: |
+          echo "=== Build Output ==="
+          ls -la out/
+          echo "=== CSS Files ==="
+          ls -la out/_next/static/css/
+          echo "=== JS Files ==="
+          ls -la out/_next/static/chunks/
+
       - name: Deploy
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout --orphan gh-pages
           git rm -rf .
-          git add out/
-          git mv out/* .
-          git commit -m "Deploy to GitHub Pages"
+          echo "=== Copying files ==="
+          cp -r out/* .
+          echo "=== Files after copy ==="
+          ls -la
+          echo "=== CSS files after copy ==="
+          ls -la _next/static/css/ || echo "CSS folder not found"
+          git add .
+          git commit -m "Deploy to GitHub Pages - $(date)"
           git push origin gh-pages --force

@@ -3,6 +3,7 @@ const nextConfig = {
   output: "export",
   trailingSlash: true,
   basePath: "/order-management-app",
+  assetPrefix: "/order-management-app",
   images: {
     unoptimized: true,
   },

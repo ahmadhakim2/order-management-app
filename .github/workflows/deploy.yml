@@ -42,11 +42,22 @@ jobs:
           git checkout --orphan gh-pages
           git rm -rf .
           echo "=== Copying files ==="
+          # Copy only the build output, not node_modules
           cp -r out/* .
+          # Remove any node_modules if accidentally copied
+          rm -rf node_modules
+          rm -rf .git
           echo "=== Files after copy ==="
           ls -la
           echo "=== CSS files after copy ==="
           ls -la _next/static/css/ || echo "CSS folder not found"
-          git add .
+          # Only add specific files, not everything
+          git add _next/
+          git add *.html
+          git add *.js
+          git add *.css
+          git add favicon.ico
+          git add *.svg
+          git status
           git commit -m "Deploy to GitHub Pages - $(date)"
           git push origin gh-pages --force

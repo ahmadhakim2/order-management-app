@@ -40,13 +40,13 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout --orphan gh-pages
+          # Remove all files except .git
           git rm -rf .
           echo "=== Copying files ==="
           # Copy only the build output, not node_modules
           cp -r out/* .
           # Remove any node_modules if accidentally copied
           rm -rf node_modules
-          rm -rf .git
           echo "=== Files after copy ==="
           ls -la
           echo "=== CSS files after copy ==="

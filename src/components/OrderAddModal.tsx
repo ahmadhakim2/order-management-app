@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -29,7 +30,7 @@ export default function OrderAddModal({ isOpen, onClose, onSave, products }: Ord
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isValid, isDirty },
+    formState: { errors },
     reset,
     trigger,
     clearErrors,
@@ -169,13 +170,18 @@ export default function OrderAddModal({ isOpen, onClose, onSave, products }: Ord
             <div className="p-4 bg-gray-800 rounded-lg border border-gray-600">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <img
+                  <Image
                     src={selectedProduct.url_image}
                     alt={selectedProduct.name}
-                    className="w-20 h-20 object-cover rounded-lg"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjMzc0MTUxIi8+CjxwYXRoIGQ9Ik00MCAyNUM0Mi4wOTM5IDI1IDQ0IDI2LjkwNjEgNDQgMjlDNDQgMzEuMDkzOSA0Mi4wOTM5IDMzIDQwIDMzQzM3LjkwNjEgMzMgMzYgMzEuMDkzOSAzNiAyOUMzNiAyNi45MDYxIDM3LjkwNjEgMjUgNDAgMjVaIiBmaWxsPSIjN0M4Q0E2Ii8+CjxwYXRoIGQ9Ik0yMCA0MEMyMCAzNy45MDYxIDIxLjkwNjEgMzYgMjQgMzZIMjZDMjguMDkzOSAzNiAzMCAzNy45MDYxIDMwIDQwVjQyQzMwIDQ0LjA5MzkgMjguMDkzOSA0NiAyNiA0NkgyNEMyMS45MDYxIDQ2IDIwIDQ0LjA5MzkgMjAgNDJWNDBaIiBmaWxsPSIjN0M4Q0E2Ii8+CjxwYXRoIGQ9Ik01MCA0MEM1MCAzNy45MDYxIDUxLjkwNjEgMzYgNTQgMzZINTZDNjguMDkzOSAzNiA3MCAzNy45MDYxIDcwIDQwVjQyQzcwIDQ0LjA5MzkgNjguMDkzOSA0NiA2NiA0NkgyNEM2MS45MDYxIDQ2IDYwIDQ0LjA5MzkgNjAgNDJWNDBaIiBmaWxsPSIjN0M4Q0E2Ii8+Cjwvc3ZnPgo=';
+                    width={80}
+                    height={80}
+                    className="w-20 h-20 object-cover rounded-lg product-image"
+                    onError={() => {
+                      // Fallback to placeholder image
+                      const imgElement = document.querySelector('.product-image') as HTMLImageElement;
+                      if (imgElement) {
+                        imgElement.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjMzc0MTUxIi8+CjxwYXRoIGQ9Ik00MCAyNUM0Mi4wOTM5IDI1IDQ0IDI2LjkwNjEgNDQgMjlDNDQgMzEuMDkzOSA0Mi4wOTM5IDMzIDQwIDMzQzM3LjkwNjEgMzMgMzYgMzEuMDkzOSAzNiAyOUMzNiAyNi45MDYxIDM3LjkwNjEgMjUgNDAgMjVaIiBmaWxsPSIjN0M4Q0E2Ii8+CjxwYXRoIGQ9Ik0yMCA0MEMyMCAzNy45MDYxIDIxLjkwNjEgMzYgMjQgMzZIMjZDMjguMDkzOSAzNiAzMCAzNy45MDYxIDMwIDQwVjQyQzMwIDQ0LjA5MzkgMjguMDkzOSA0NiAyNiA0NkgyNEMyMS45MDYxIDQ2IDIwIDQ0LjA5MzkgMjAgNDJWNDBaIiBmaWxsPSIjN0M4Q0E2Ii8+CjxwYXRoIGQ9Ik01MCA0MEM1MCAzNy45MDYxIDUxLjkwNjEgMzYgNTQgMzZINTZDNjguMDkzOSAzNiA3MCAzNy45MDYxIDcwIDQwVjQyQzcwIDQ0LjA5MzkgNjguMDkzOSA0NiA2NiA0NkgyNEM2MS45MDYxIDQ2IDYwIDQ0LjA5MzkgNjAgNDJWNDBaIiBmaWxsPSIjN0M4Q0E2Ii8+Cjwvc3ZnPgo=';
+                      }
                     }}
                   />
                 </div>

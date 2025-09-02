@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { OrderItem, Product } from '@/types/order';
 
 interface OrderListProps {
@@ -128,21 +129,25 @@ export default function OrderList({ orders, products, onAddOrder, onUpdateOrders
                     {/* Product Column */}
                     <td className="px-6 py-4 whitespace-nowrap min-w-[250px]">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-16 w-16 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                        <div className="flex-shrink-0 h-16 w-16 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden" data-product={item.id}>
                           {item.url_image ? (
-                            <img
+                            <Image
                               src={item.url_image}
                               alt={item.productName}
+                              width={64}
+                              height={64}
                               className="w-full h-full object-cover"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                                target.nextElementSibling?.classList.remove('hidden');
+                              onError={() => {
+                                // Hide image and show fallback
+                                const imageElement = document.querySelector(`[data-product="${item.id}"] img`);
+                                const fallbackElement = document.querySelector(`[data-product="${item.id}"] .fallback-placeholder`);
+                                if (imageElement) imageElement.classList.add('hidden');
+                                if (fallbackElement) fallbackElement.classList.remove('hidden');
                               }}
                             />
                           ) : null}
                           {/* Fallback placeholder */}
-                          <div className={`w-full h-full bg-gray-300 flex items-center justify-center ${item.url_image ? 'hidden' : ''}`}>
+                          <div className={`fallback-placeholder w-full h-full bg-gray-300 flex items-center justify-center ${item.url_image ? 'hidden' : ''}`}>
                             <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>

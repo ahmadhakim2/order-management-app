@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === "production";
+const repoName = "order-management-app";
+
 const nextConfig = {
   output: "export",
   trailingSlash: true,
-  basePath: "/order-management-app",
-  assetPrefix: "/order-management-app",
+  basePath: isProd ? `/${repoName}` : "",
+  assetPrefix: isProd ? `/${repoName}/` : "",
   images: {
     unoptimized: true,
   },

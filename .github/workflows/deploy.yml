@@ -47,6 +47,8 @@ jobs:
           cp -r out/* .
           # Remove any node_modules if accidentally copied
           rm -rf node_modules
+          # Remove out folder if it was copied
+          rm -rf out
           echo "=== Files after copy ==="
           ls -la
           echo "=== CSS files after copy ==="

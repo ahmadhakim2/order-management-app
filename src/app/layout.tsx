@@ -4,7 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
-
+// tes
 export const metadata: Metadata = {
   title: "Order Management System",
   description: "Sistem manajemen order yang modern dan mudah digunakan",
@@ -32,7 +32,7 @@ export default function RootLayout({
                   <span className="text-xl font-bold text-gray-900">OrderMS</span>
                 </Link>
               </div>
-              
+
               <div className="flex items-center space-x-4">
                 <Link
                   href="/"

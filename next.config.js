@@ -5,8 +5,8 @@ const repoName = "order-management-app";
 const nextConfig = {
   output: "export",
   trailingSlash: true,
-  basePath: isProd ? `/${repoName}` : "",
-  assetPrefix: isProd ? `/${repoName}/` : "",
+  // basePath: isProd ? `/${repoName}` : "",
+  // assetPrefix: isProd ? `/${repoName}/` : "",
   images: {
     unoptimized: true,
   },

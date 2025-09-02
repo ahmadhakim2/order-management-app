@@ -2,6 +2,8 @@
 const nextConfig = {
   output: "export",
   trailingSlash: true,
+  basePath:
+    process.env.NODE_ENV === "production" ? "/order-management-app" : "",
   images: {
     unoptimized: true,
   },
